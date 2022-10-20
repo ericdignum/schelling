@@ -5,10 +5,10 @@ from space import SingleGrid
 from scipy.stats import truncnorm
 from scipy.ndimage import convolve
 
-import warnings
-warnings.simplefilter("ignore", UserWarning)
-from segregation.multigroup import MultiDissim
-from segregation.singlegroup import SpatialDissim
+# import warnings
+# warnings.simplefilter("ignore", UserWarning)
+# from segregation.multigroup import MultiDissim
+# from segregation.singlegroup import SpatialDissim
 
 class SchellingAgent(mesa.Agent):
     
@@ -300,7 +300,7 @@ class Schelling(mesa.Model):
                 start_x = x
                 start_y = 0
                 
-            segregation.append(MultiDissim(neighbourhoods, cols).statistic)
+            segregation.append(None)#MultiDissim(neighbourhoods, cols).statistic)
         columns = ['time'] + [str(k) for k in sizes]
         data = pd.DataFrame(columns=columns, index=[0])
         data.iloc[0] = [self.schedule.time] + segregation

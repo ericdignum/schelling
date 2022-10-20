@@ -40,7 +40,7 @@ class BokehServer():
         # see the same document.
         self.doc = doc
 
-        # Initialise a CompassModel model with the default setting.
+        # Initialise a Schelling model with the default setting.
         self.model = Schelling()
         self.res_ended = False
         self.executor = ThreadPoolExecutor(max_workers=2)
@@ -429,7 +429,7 @@ class BokehServer():
                               toolbar_location=None, sizing_mode='scale_both')
 
         self.doc.add_root(vis_layout)
-        self.doc.title = "COMPASS"
+        self.doc.title = "Schelling"
 
     def buttons(self, width=100):
         self.run = Button(label="Run", button_type='success', height=32)
