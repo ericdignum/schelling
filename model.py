@@ -88,7 +88,6 @@ class Schelling(mesa.Model):
         """ """
         
         # Set all the parameter values
-        self.std = pars['std']
         self.mode = pars['mode']
         self.torus = pars['torus']
         self.width = pars['width']
@@ -96,7 +95,6 @@ class Schelling(mesa.Model):
         self.radius = pars['radius']
         self.density = pars['density']
         self.filename = pars['filename']
-        self.homophily = pars['homophily']
         self.max_steps = pars['max_steps']
         self.minority_pc = pars['minority_pc']
         self.window_size = pars['window_size']

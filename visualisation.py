@@ -358,22 +358,24 @@ class BokehServer():
             mu2 = float(self.mu2.value)
             std2 = float(self.std2.value)
 
-        self.model = Schelling(
-            mode=self.mode.value,
-            width=int(self.size.value), 
-            height=int(self.size.value), 
-            density=float(self.density.value),
-            max_steps=int(self.max_steps.value), 
-            minority_pc=float(self.minority_pc.value), 
-            window_size=int(self.window_size.value), 
-            conv_threshold=float(self.conv_threshold.value),
-            move_fraction=float(self.move_fraction.value),
-            torus=bool(self.torus.value), 
-            radius=int(self.radius.value),
-            mu1=float(self.mu1.value), 
-            std1=float(self.std1.value),
-            mu2=mu2, 
-            std2=std2
+        self.model = Schelling(pars={
+                    'width':int(self.size.value), 
+                    'height':int(self.size.value), 
+                    'density':float(self.density.value),
+                    'max_steps':int(self.max_steps.value), 
+                    'mode':self.mode.value,
+                    'minority_pc':float(self.minority_pc.value), 
+                    'window_size':int(self.window_size.value), 
+                    'conv_threshold':float(self.conv_threshold.value),
+                    'radius':int(self.radius.value), 
+                    'torus':bool(self.torus.value),
+                    'mu1':float(self.mu1.value), 
+                    'std1':float(self.std1.value),
+                    'mu2':mu2, 
+                    'std2':std2,
+                    'move_fraction':float(self.move_fraction.value),
+                    'filename':'test.npz'
+                    }
         )
 
         # Stop the model when it is still running while reset is clicked.
