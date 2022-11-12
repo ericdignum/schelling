@@ -9,6 +9,9 @@ matplotlib = "*"
 mesa = "*"
 bokeh = "*"
 scipy = "*"
+sbi = "*"
+seaborn = "*"
+segregation = "==2.0.0"
 
 [dev-packages]
 

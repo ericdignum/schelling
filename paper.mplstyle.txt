@@ -1,0 +1,13 @@
+mathtext.default : regular
+lines.linewidth : 2
+axes.linewidth : 2
+axes.edgecolor : black
+xtick.top : True
+xtick.bottom : True
+xtick.color : black
+ytick.left : True
+ytick.right : True
+ytick.color : black
+xtick.direction : in
+ytick.direction : in
+grid.alpha : 1

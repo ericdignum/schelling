@@ -1,14 +1,15 @@
 import mesa
 import numpy as np
 import pandas as pd
+from operator import add
 from space import SingleGrid
 from scipy.stats import truncnorm
 from scipy.ndimage import convolve
 
-# import warnings
-# warnings.simplefilter("ignore", UserWarning)
-# from segregation.multigroup import MultiDissim
-# from segregation.singlegroup import SpatialDissim
+import warnings
+warnings.simplefilter("ignore", UserWarning)
+from segregation.multigroup import MultiDissim
+from segregation.singlegroup import SpatialDissim
 
 class SchellingAgent(mesa.Agent):
     
@@ -75,13 +76,19 @@ class Schelling(mesa.Model):
 
     def __init__(self, pars={
                     'width':80, 
-                    'height':80, 'density':0.9,
-                    'max_steps':100, 'mode':'Heterogeneous',
-                    'minority_pc':0.5, 'homophily':0.3,
-                    'window_size':30, 'conv_threshold':0.01,
-                    'std':0, 'radius':1, 'torus':True,
-                    'mu1':.3, 'std1':.1,
-                    'mu2':.4, 'std2':.05,
+                    'height':80, 
+                    'density':0.9,
+                    'max_steps':100, 
+                    'mode':'Heterogeneous',
+                    'minority_pc':0.5, 
+                    'window_size':30, 
+                    'conv_threshold':0.01,
+                    'radius':1, 
+                    'torus':True,
+                    'mu1':.3, 
+                    'std1':.1,
+                    'mu2':.4, 
+                    'std2':.05,
                     'move_fraction':0.15,
                     'filename':'test.npz'
                     }):
@@ -268,6 +275,20 @@ class Schelling(mesa.Model):
 
         return False
 
+    def calc_neighbourhood_compositions(self, n=8):
+        attrs = self.household_attrs
+        maximum = attrs.max()
+        compositions = [0]*(n*n)
+        i = 0
+        for h in range(n):
+            for v in range(n):
+                neighbourhood = attrs[h * n : h * n + n, v * n : v * n + n]
+                counts = np.bincount(neighbourhood.flatten(), minlength=maximum)
+                compositions[i] = list(counts)[1:] # discard empties
+                i += 1
+
+        return compositions
+
     def calculate_segregation(self):
         """
         Only for visualisation purposes!
@@ -298,7 +319,7 @@ class Schelling(mesa.Model):
                 start_x = x
                 start_y = 0
                 
-            segregation.append(None)#MultiDissim(neighbourhoods, cols).statistic)
+            segregation.append(None)#SpatialDissim(neighbourhoods, cols).statistic)
         columns = ['time'] + [str(k) for k in sizes]
         data = pd.DataFrame(columns=columns, index=[0])
         data.iloc[0] = [self.schedule.time] + segregation
